@@ -11,7 +11,9 @@ class DefaultLayout extends Component {
         results: [],
         modal: false,
         videoUrl: '',
-        videoTitle: ''
+        videoTitle: '',
+        favorites: [],
+        loggedIn: false
     }
     
 
@@ -44,6 +46,10 @@ class DefaultLayout extends Component {
         }));
     }
 
+    toggleFavorite = (id, e) => {
+      //  const newFavorites = this.state.favorites ? remove : add
+    }
+
     render() {
         return (
             <Container fluid className="mt-3">
@@ -53,7 +59,14 @@ class DefaultLayout extends Component {
                         
                     </Col>
                     <Col md="8">
-                        <ResultsContainer results={this.state.results} getTrailer={this.getTrailer}/>
+                        <ResultsContainer 
+                            favorites={this.state.favorites} 
+                            results={this.state.results} 
+                            getTrailer={this.getTrailer}
+                            toggleFavorite={this.toggleFavorite}
+                            loggedIn={this.state.loggedIn}
+                            handleLogin={this.handleLogin}
+                            />
                     </Col>
                 </Row>
 
