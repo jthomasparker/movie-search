@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Button, Card, CardBody, CardTitle, CardText, CardSubtitle} from 'reactstrap'
+import {Button, Card, CardBody, CardFooter, CardTitle, CardText, CardSubtitle} from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './MovieCard.css'
 
 class MovieCard extends Component {
@@ -20,8 +21,16 @@ class MovieCard extends Component {
                         </CardText>
                     <CardSubtitle>Plot:</CardSubtitle> 
                         <CardText>{movie.story}</CardText>
-                    <Button onClick={(e)=>this.props.getTrailer(movie.title, e)}>Watch Trailer</Button>
                 </CardBody>
+                <CardFooter>
+                    <Button onClick={(e)=>this.props.getTrailer(movie.title, e)}>Watch Trailer</Button>
+                    <Button className="ml-3">
+                    {this.props.isFavorite ? 
+                                <FontAwesomeIcon icon='star'  onClick={(e) => movie.toggleFavorite(movie.id, e)} color="yellow"/>
+                            :   <FontAwesomeIcon icon={['far', 'star']} onClick={(e) => movie.toggleFavorite(movie.id, e)}/>
+                            }
+                    </Button>
+                </CardFooter>
             </Card>
 
         )

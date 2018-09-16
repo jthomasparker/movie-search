@@ -18,8 +18,15 @@ if (process.env.NODE_ENV === "production") {
 }
 
 mongoose.connect(TITLES_DB, { useNewUrlParser: true })
+        .then(() => console.log("Mongoose connected to Titles db"))
+        .catch(err => console.log(err))
+/*const titlesDB = mongoose.createConnection(TITLES_DB, { useNewUrlParser: true })
                 .then(() => console.log("Mongoose connected to Titles db"))
-                .catch(err => console.log(err))
+                .catch(err => console.log(err))*/
+
+/*const usersDB = mongoose.createConnection(process.env.MONGODB_URI || "mongodb://localhost/movieSearch", { useNewUrlParser: true })
+                .then(() => console.log("Mongoose connected to Users db"))
+                .catch(err => console.log(err))*/
 
 // Start server
 app.listen(PORT, () => console.log(`API Server listening on PORT ${PORT}`))

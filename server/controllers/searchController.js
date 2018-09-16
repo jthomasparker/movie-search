@@ -3,6 +3,7 @@ const db = require('../models')
 module.exports = {
 
     getMovies: (req, res) => {
+        console.log(req.query)
         const { title, genre, actors, year } = req.query
         db.Title
             .find({
