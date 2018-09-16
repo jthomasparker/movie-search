@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {Card, CardBody, CardTitle, Col, Row} from 'reactstrap'
 import MovieCard from '../../components/MovieCard'
 
+
 class ResultsContainer extends Component {
+
 
 
     render() {
@@ -21,6 +23,7 @@ class ResultsContainer extends Component {
                                 story={movie.Storylines[0].Description}
                                 actors={[...movie.Participants.filter(actor => (actor.IsKey))]}
                                 year={movie.ReleaseYear}
+                                getTrailer={this.props.getTrailer}
                             />
                         ))
                         : (
