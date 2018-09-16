@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
-import { InputGroup, InputGroupAddon, InputGroupText, Input, Button, Container, Row, Col } from 'reactstrap'
+import { Container, Row, Col } from 'reactstrap'
 import API from '../../utils/API'
+import SearchCard from '../SearchCard'
+import ResultsContainer from '../ResultsContainer'
+
 
 class DefaultLayout extends Component {
 
     state = {
-        title: '',
         results: []
     }
     
 
-    handleInputChange = e => {
-        const { name, value } = e.target;
-        this.setState({
-            [name]: value
-        });
-    };
-
-    handleSearch = () => {
-        
-        API.searchTitles(this.state.title)
+    handleSearch = (userInput) => {
+        API.getMovies(userInput)
             .then(res => {
                 console.log(res)
                 this.setState({
@@ -31,37 +25,14 @@ class DefaultLayout extends Component {
 
     render() {
         return (
-            <Container>
+            <Container className="mt-3">
                 <Row>
-                    <Col/>
-                    <Col>
-                        <InputGroup size="lg">
-                            <Input
-                                name="title"
-                                placeholder="Search" 
-                                value={this.state.title}
-                                onChange={this.handleInputChange}
-                            />
-                            <InputGroupAddon addonType="append">
-                                <Button 
-                                    color="secondary" 
-                                    onClick={this.handleSearch}>
-                                    Search</Button>
-                            </InputGroupAddon>
-                        </InputGroup>
+                    <Col md="3">
+                        <SearchCard handleSearch={this.handleSearch}/>
                     </Col>
-                    <Col/>
-                </Row>
-                <Row>
-                    <Col/>
-                    <Col md="6">
-                    <ul>
-                    {this.state.results.map(movie => (
-                        <li key={movie._id}>{movie.TitleName}</li>
-                    ))}
-                    </ul>
+                    <Col md="9">
+                        <ResultsContainer results={this.state.results}/>
                     </Col>
-                    <Col/>
                 </Row>
             </Container>
 
