@@ -10,7 +10,8 @@ class DefaultLayout extends Component {
     state = {
         results: [],
         modal: false,
-        videoUrl: ''
+        videoUrl: '',
+        videoTitle: ''
     }
     
 
@@ -64,7 +65,8 @@ class DefaultLayout extends Component {
                 >
                     <ModalBody className="embed-responsive embed-responsive-16by9">
                         <iframe 
-                            className="embed-responsive-item" 
+                            className="embed-responsive-item"
+                            title={this.state.videoTitle} 
                             allowFullScreen
                             src={this.state.videoUrl}
                         />
