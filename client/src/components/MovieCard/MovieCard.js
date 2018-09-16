@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import {Card, CardBody, CardTitle, CardText, CardSubtitle} from 'reactstrap'
+import {Button, Card, CardBody, CardTitle, CardText, CardSubtitle} from 'reactstrap'
 import './MovieCard.css'
 
 class MovieCard extends Component {
-    state = {
-
-    }
-
 
     
     render() {
@@ -24,6 +20,7 @@ class MovieCard extends Component {
                         </CardText>
                     <CardSubtitle>Plot:</CardSubtitle> 
                         <CardText>{movie.story}</CardText>
+                    <Button onClick={(e)=>this.props.getTrailer(movie.title, e)}>Watch Trailer</Button>
                 </CardBody>
             </Card>
 

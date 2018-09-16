@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap'
+import { Container, Row, Col, Modal, ModalBody } from 'reactstrap'
 import API from '../../utils/API'
-import SearchCard from '../SearchCard'
+import SideContainer from '../SideContainer'
 import ResultsContainer from '../ResultsContainer'
 
 
 class DefaultLayout extends Component {
 
     state = {
-        results: []
+        results: [],
+        modal: false,
+        videoUrl: ''
     }
     
 
@@ -23,17 +25,51 @@ class DefaultLayout extends Component {
             .catch(err => console.log(err))
     }
 
+    getTrailer = (title, e) => {
+        API.getTrailer(title)
+            .then(res => {
+                const video = res.data.items[0]
+                this.setState(prevState => ({
+                    modal: !prevState.modal,
+                    videoUrl: 'https://www.youtube.com/embed/' + video.id.videoId,
+                    videoTitle: video.snippet.title
+                }))
+            })
+    }
+
+    toggleModal = () => {
+        this.setState(prevState =>({
+            modal: !prevState.modal
+        }));
+    }
+
     render() {
         return (
-            <Container className="mt-3">
+            <Container fluid className="mt-3">
                 <Row>
-                    <Col md="3">
-                        <SearchCard handleSearch={this.handleSearch}/>
+                    <Col md="4">
+                        <SideContainer handleSearch={this.handleSearch} />
+                        
                     </Col>
-                    <Col md="9">
-                        <ResultsContainer results={this.state.results}/>
+                    <Col md="8">
+                        <ResultsContainer results={this.state.results} getTrailer={this.getTrailer}/>
                     </Col>
                 </Row>
+
+                <Modal 
+                    isOpen={this.state.modal}
+                    toggle={this.toggleModal}
+                    size="lg"
+                    centered
+                >
+                    <ModalBody className="embed-responsive embed-responsive-16by9">
+                        <iframe 
+                            className="embed-responsive-item" 
+                            allowFullScreen
+                            src={this.state.videoUrl}
+                        />
+                    </ModalBody>
+                </Modal>
             </Container>
 
 
